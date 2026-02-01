@@ -37,15 +37,15 @@ pub async fn run(opts: Opts) -> Result<()> {
         )
     })?;
 
-    eprintln!(
+    println!(
         "Configuring Nix to use \"{cache}\" on \"{server_name}\":",
         cache = cache.as_str(),
         server_name = server_name.as_str(),
     );
 
     // Modify nix.conf
-    eprintln!("+ Substituter: {}", substituter);
-    eprintln!("+ Trusted Public Key: {}", public_key);
+    println!("+ Substituter: {}", substituter);
+    println!("+ Trusted Public Key: {}", public_key);
 
     let mut nix_config = NixConfig::load().await?;
     nix_config.add_substituter(&substituter);
@@ -53,7 +53,7 @@ pub async fn run(opts: Opts) -> Result<()> {
 
     // Modify netrc
     if let Some(token) = server.token()? {
-        eprintln!("+ Access Token");
+        println!("+ Access Token");
 
         let mut nix_netrc = NixNetrc::load().await?;
         let host = Url::parse(&substituter)?

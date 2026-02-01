@@ -220,7 +220,7 @@ pub async fn run_api_server(
     config: Config,
     shutdown: CancellationToken,
 ) -> Result<()> {
-    eprintln!("Starting API server...");
+    println!("Starting API server...");
 
     let state = StateInner::new(config).await;
 
@@ -242,7 +242,7 @@ pub async fn run_api_server(
         .layer(TraceLayer::new_for_http())
         .layer(CatchPanicLayer::new());
 
-    eprintln!("Listening on {:?}...", listen);
+    println!("Listening on {:?}...", listen);
 
     let listener = TcpListener::bind(&listen).await?;
 
@@ -273,7 +273,7 @@ pub async fn run_api_server(
 
 /// Runs database migrations.
 pub async fn run_migrations(config: Config) -> Result<()> {
-    eprintln!("Running migrations...");
+    println!("Running migrations...");
 
     let state = StateInner::new(config).await;
     let db = state.database().await?;
